@@ -22,11 +22,14 @@ namespace UniversalAudioComponent.App
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private UniversapAudioPlayer player = new UniversapAudioPlayer();
+
         public MainPage()
         {
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
+
         }
 
         /// <summary>
