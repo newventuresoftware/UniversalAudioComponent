@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,30 +25,60 @@ namespace UniversalAudioComponent.App
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private UniversapAudioPlayer player = new UniversapAudioPlayer();
-
+        private UniversalAudioPlayer player = new UniversalAudioPlayer();
+        private Dictionary<string, IBuffer> buffers = new Dictionary<string, IBuffer>();
+        
         public MainPage()
         {
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
-
         }
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.
-        /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // TODO: Prepare page for display here.
+        }
 
-            // TODO: If your application contains multiple pages, ensure that you are
-            // handling the hardware Back button by registering for the
-            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
-            // If you are using the NavigationHelper provided by some templates,
-            // this event is handled for you.
+        private async Task<IBuffer> GetBuffer(string sampleName)
+        {
+            IBuffer buffer = null;
+
+            if(!this.buffers.ContainsKey(sampleName))
+            {
+                var path = String.Format("ms-appx:///Assets/{0}.wav", sampleName);
+                var audioFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(path));
+                buffer = await FileIO.ReadBufferAsync(audioFile);
+            }
+            else
+            {
+                buffer = this.buffers[sampleName];
+            }
+
+            return buffer;
+        }
+
+        private async void OnToggleMusicClicked(object sender, RoutedEventArgs e)
+        {
+            var buffer = await this.GetBuffer("pad");
+            var sample = new AudioSample("pad", buffer);
+
+            this.player.PlayMusic(sample);
+        }
+
+        private async void OnKickClicked(object sender, RoutedEventArgs e)
+        {
+            var buffer = await this.GetBuffer("kick");
+            var sample = new AudioSample("kick", buffer);
+
+            this.player.PlayEffect(sample);
+        }
+
+        private async void OnHitHatClicked(object sender, RoutedEventArgs e)
+        {
+            var buffer = await this.GetBuffer("hi");
+            var sample = new AudioSample("hi", buffer);
+
+            this.player.PlayEffect(sample);
         }
     }
 }

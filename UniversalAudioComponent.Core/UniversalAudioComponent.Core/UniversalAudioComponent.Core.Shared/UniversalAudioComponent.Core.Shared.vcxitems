@@ -4,7 +4,7 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
     <ItemsProjectGuid>{b422257b-ce54-4901-9690-eda6b99f6032}</ItemsProjectGuid>
-    <ItemsRootNamespace>UniversalAudioComponent.Core</ItemsRootNamespace>
+    <ItemsRootNamespace>UniversalAudioComponent</ItemsRootNamespace>
     <ItemsProjectName>UniversalAudioComponent.Core.Shared</ItemsProjectName>
     <CodeSharingProject>248F659F-DAC5-46E8-AC09-60EC9FC95053</CodeSharingProject>
   </PropertyGroup>
@@ -14,7 +14,13 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RiffReader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UniversalAudioPlayer.cpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioSample.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Chunks.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RiffReader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UniversalAudioPlayer.h" />
   </ItemGroup>
   <ItemGroup>

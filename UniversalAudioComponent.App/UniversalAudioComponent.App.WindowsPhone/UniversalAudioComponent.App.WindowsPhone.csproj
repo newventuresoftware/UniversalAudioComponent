@@ -80,18 +80,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\..\UniversalAudioComponent.Core\UniversalAudioComponent.Core\UniversalAudioComponent.Core.WindowsPhone\UniversalAudioComponent.Core.WindowsPhone.vcxproj">
-      <Project>{5e89b2e6-29b9-443a-8107-9f2602bfd076}</Project>
-      <Name>UniversalAudioComponent.Core.WindowsPhone</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UniversapAudioPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -111,6 +103,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\UniversalAudioComponent.Core\UniversalAudioComponent.Core\UniversalAudioComponent.Core.WindowsPhone\UniversalAudioComponent.Core.WindowsPhone.vcxproj">
+      <Project>{5e89b2e6-29b9-443a-8107-9f2602bfd076}</Project>
+      <Name>UniversalAudioComponent.Core.WindowsPhone</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

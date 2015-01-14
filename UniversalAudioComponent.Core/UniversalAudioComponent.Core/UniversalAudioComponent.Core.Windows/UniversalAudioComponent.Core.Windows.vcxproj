@@ -28,7 +28,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{edaf4a17-e243-406a-95fa-2d235a722b0c}</ProjectGuid>
-    <RootNamespace>UniversalAudioComponent.Core</RootNamespace>
+    <RootNamespace>UniversalAudioComponent</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>

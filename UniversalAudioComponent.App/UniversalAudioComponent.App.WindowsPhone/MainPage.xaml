@@ -9,6 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ToggleButton HorizontalAlignment="Center" Click="OnToggleMusicClicked">Toggle Music</ToggleButton>
+            <Button HorizontalAlignment="Center" Click="OnKickClicked">Kick Drum</Button>
+            <Button HorizontalAlignment="Center" Click="OnHitHatClicked">Hi Hat</Button>
+        </StackPanel>
+        
     </Grid>
 </Page>

@@ -103,13 +103,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\..\UniversalAudioComponent.Core\UniversalAudioComponent.Core\UniversalAudioComponent.Core.Windows\UniversalAudioComponent.Core.Windows.vcxproj">
-      <Project>{edaf4a17-e243-406a-95fa-2d235a722b0c}</Project>
-      <Name>UniversalAudioComponent.Core.Windows</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -132,6 +125,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\UniversalAudioComponent.Core\UniversalAudioComponent.Core\UniversalAudioComponent.Core.Windows\UniversalAudioComponent.Core.Windows.vcxproj">
+      <Project>{edaf4a17-e243-406a-95fa-2d235a722b0c}</Project>
+      <Name>UniversalAudioComponent.Core.Windows</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

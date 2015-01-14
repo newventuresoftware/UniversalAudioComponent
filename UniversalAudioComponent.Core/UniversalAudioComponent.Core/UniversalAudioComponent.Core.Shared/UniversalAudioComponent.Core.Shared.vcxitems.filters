@@ -3,10 +3,16 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UniversalAudioPlayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Chunks.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioSample.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RiffReader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioData.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UniversalAudioPlayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RiffReader.cpp" />
   </ItemGroup>
 </Project>
