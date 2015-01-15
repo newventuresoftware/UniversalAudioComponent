@@ -3,12 +3,6 @@
 #include "pch.h"
 #include "UniversalAudioPlayer.h"
 
-using namespace Platform;
-using namespace Platform::Collections;
-using namespace Microsoft::WRL;
-using namespace Windows::Storage::Streams;
-using namespace Windows::Foundation::Collections;
-using namespace Concurrency;
 using namespace UniversalAudioComponent;
 
 UniversalAudioPlayer::UniversalAudioPlayer()
@@ -24,10 +18,10 @@ UniversalAudioPlayer::UniversalAudioPlayer()
 
     hr = xAudio->CreateMasteringVoice(&masteringVoice);
 
-    xAudio->StartEngine();
+    if (FAILED(hr))
+        ref new COMException(hr, "Could not create mastering voice");
 
-    this->reader = new RiffReader();
-    //this->runningVoices = new std::map<String^, IXAudio2SourceVoice*>();
+    xAudio->StartEngine();
 }
 
 bool UniversalAudioPlayer::IsPlaying(AudioSample^ sample)
@@ -44,23 +38,15 @@ void UniversalAudioPlayer::Play(AudioSample^ sample)
         return;
     }
 
-    auto data = this->reader->Read(sample->Buffer);
-    IXAudio2SourceVoice * voice = NULL;
-    HRESULT hr = xAudio->CreateSourceVoice(&voice, data->waveFormat);
+    auto reader = new RiffReader();
+    auto data = reader->Read(sample->Buffer);
+
+    IXAudio2SourceVoice * voice = this->CreateVoice(data->waveFormat);
+    XAUDIO2_BUFFER buffer = this->CreateAudioBuffer(data);
+    HRESULT hr = voice->SubmitSourceBuffer(&buffer);
 
     if (FAILED(hr))
-        throw ref new COMException(hr, "SubmitSourceBuffer failure");
-
-    XAUDIO2_BUFFER buffer = { 0 };
-    buffer.AudioBytes = data->numberOfBytes;
-    buffer.pAudioData = data->bytes;
-    buffer.Flags = XAUDIO2_END_OF_STREAM;
-    buffer.LoopCount = 100;
-
-    hr = voice->SubmitSourceBuffer(&buffer);
-
-    if (FAILED(hr))
-        throw ref new COMException(hr, "SubmitSourceBuffer failure");
+        throw ref new COMException(hr, "Could not submit buffer");
 
     voice->Start(0);
     this->runningVoices[sample->Name] = voice;
@@ -79,4 +65,26 @@ void UniversalAudioPlayer::Stop(AudioSample^ sample)
     voice->DestroyVoice();
     
     this->runningVoices.erase(sample->Name);
+}
+
+IXAudio2SourceVoice* UniversalAudioPlayer::CreateVoice(WAVEFORMATEX* wavFormat)
+{
+    IXAudio2SourceVoice * voice = NULL;
+    HRESULT hr = xAudio->CreateSourceVoice(&voice, wavFormat);
+
+    if (FAILED(hr))
+        throw ref new COMException(hr, "SubmitSourceBuffer failure");
+
+    return voice;
+}
+
+XAUDIO2_BUFFER UniversalAudioPlayer::CreateAudioBuffer(AudioData^ data)
+{
+    XAUDIO2_BUFFER buffer = { 0 };
+    buffer.AudioBytes = data->numberOfBytes;
+    buffer.pAudioData = data->bytes;
+    buffer.Flags = XAUDIO2_END_OF_STREAM;
+    buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
+
+    return buffer;
 }

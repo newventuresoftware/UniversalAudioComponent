@@ -7,9 +7,7 @@
 
 using namespace Platform;
 using namespace Microsoft::WRL;
-using namespace Windows::Storage::Streams;
 using namespace Windows::Foundation::Collections;
-using namespace Concurrency;
 
 namespace UniversalAudioComponent
 {
@@ -19,12 +17,11 @@ namespace UniversalAudioComponent
 
         ComPtr<IXAudio2> xAudio;
         IXAudio2MasteringVoice * masteringVoice;
-        IXAudio2SourceVoice * musicVoice;
-        IXAudio2SourceVoice * effectsVoice;
-        RiffReader* reader;
         std::map<String^, IXAudio2SourceVoice*> runningVoices;
 
         bool IsPlaying(AudioSample^);
+        IXAudio2SourceVoice* CreateVoice(WAVEFORMATEX* wavFormat);
+        XAUDIO2_BUFFER CreateAudioBuffer(AudioData^ data);
 
     public:
         UniversalAudioPlayer();
