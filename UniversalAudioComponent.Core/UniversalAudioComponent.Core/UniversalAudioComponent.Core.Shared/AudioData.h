@@ -8,16 +8,16 @@ namespace UniversalAudioComponent
 {
     ref class AudioData sealed
     {
-    internal: 
+    internal:
         byte * bytes;
-       unsigned int numberOfBytes;
-       WAVEFORMATEX* waveFormat;
+        unsigned int numberOfBytes;
+        WAVEFORMATEX* waveFormat;
 
     public:
-       AudioData()
-       {
+        AudioData()
+        {
 
-       }
+        }
 
     };
 }
