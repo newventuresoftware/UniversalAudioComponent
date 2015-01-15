@@ -31,7 +31,6 @@ namespace UniversalAudioComponent.App
         public MainPage()
         {
             this.InitializeComponent();
-
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
@@ -48,6 +47,8 @@ namespace UniversalAudioComponent.App
                 var path = String.Format("ms-appx:///Assets/{0}.wav", sampleName);
                 var audioFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(path));
                 buffer = await FileIO.ReadBufferAsync(audioFile);
+
+                this.buffers[sampleName] = buffer;
             }
             else
             {
@@ -57,28 +58,36 @@ namespace UniversalAudioComponent.App
             return buffer;
         }
 
-        private async void OnToggleMusicClicked(object sender, RoutedEventArgs e)
+        private async void OnToggleBeatClicked(object sender, RoutedEventArgs e)
         {
+            var button = sender as ToggleButton;
+            var buffer = await this.GetBuffer("beat");
+            var sample = new AudioSample("beat", buffer);
+
+            if(button.IsChecked.Value)
+            {
+                this.player.Play(sample);
+            }
+            else
+            {
+                this.player.Stop(sample);
+            }
+        }
+
+        private async void OnToggleMelodyClicked(object sender, RoutedEventArgs e)
+        {
+            var button = sender as ToggleButton;
             var buffer = await this.GetBuffer("pad");
             var sample = new AudioSample("pad", buffer);
 
-            this.player.PlayMusic(sample);
-        }
-
-        private async void OnKickClicked(object sender, RoutedEventArgs e)
-        {
-            var buffer = await this.GetBuffer("kick");
-            var sample = new AudioSample("kick", buffer);
-
-            this.player.PlayEffect(sample);
-        }
-
-        private async void OnHitHatClicked(object sender, RoutedEventArgs e)
-        {
-            var buffer = await this.GetBuffer("hi");
-            var sample = new AudioSample("hi", buffer);
-
-            this.player.PlayEffect(sample);
+            if (button.IsChecked.Value)
+            {
+                this.player.Play(sample);
+            }
+            else
+            {
+                this.player.Stop(sample);
+            }
         }
     }
 }

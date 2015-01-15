@@ -9,10 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ToggleButton HorizontalAlignment="Center" Click="OnToggleMusicClicked">Toggle Music</ToggleButton>
-            <Button HorizontalAlignment="Center" Click="OnKickClicked">Kick Drum</Button>
-            <Button HorizontalAlignment="Center" Click="OnHitHatClicked">Hi Hat</Button>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="200">
+            <ToggleButton Height="100" HorizontalAlignment="Stretch" Click="OnToggleMelodyClicked">Toggle Melody</ToggleButton>
+            <ToggleButton Height="100" HorizontalAlignment="Stretch" Click="OnToggleBeatClicked">Toggle Beat</ToggleButton>
         </StackPanel>
         
     </Grid>

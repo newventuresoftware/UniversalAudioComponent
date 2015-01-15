@@ -17,8 +17,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Assets\hi.wav" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\kick.wav" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\beat.wav" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\pad.wav" />
   </ItemGroup>
 </Project>

@@ -22,12 +22,14 @@ namespace UniversalAudioComponent
         IXAudio2SourceVoice * musicVoice;
         IXAudio2SourceVoice * effectsVoice;
         RiffReader* reader;
-        IMap<String^, AudioData^>^ dataCache;
+        std::map<String^, IXAudio2SourceVoice*> runningVoices;
+
+        bool IsPlaying(AudioSample^);
 
     public:
         UniversalAudioPlayer();
-        void PlayMusic(AudioSample^ sample);
-        void PlayEffect(AudioSample^ sample);
+        void Play(AudioSample^ sample);
+        void Stop(AudioSample^ sample);
     };
 }
 
