@@ -13,6 +13,5 @@
             <ToggleButton Height="100" HorizontalAlignment="Stretch" Click="OnToggleMelodyClicked">Toggle Melody</ToggleButton>
             <ToggleButton Height="100" HorizontalAlignment="Stretch" Click="OnToggleBeatClicked">Toggle Beat</ToggleButton>
         </StackPanel>
-        
     </Grid>
 </Page>

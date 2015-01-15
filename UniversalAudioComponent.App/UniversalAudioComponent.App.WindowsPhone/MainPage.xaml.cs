@@ -27,22 +27,47 @@ namespace UniversalAudioComponent.App
     {
         private UniversalAudioPlayer player = new UniversalAudioPlayer();
         private Dictionary<string, IBuffer> buffers = new Dictionary<string, IBuffer>();
-        
+
         public MainPage()
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private async void OnToggleBeatClicked(object sender, RoutedEventArgs e)
         {
+            var button = sender as ToggleButton;
+
+            await this.ToggleSample("beat", button.IsChecked.Value);
+        }
+
+        private async void OnToggleMelodyClicked(object sender, RoutedEventArgs e)
+        {
+            var button = sender as ToggleButton;
+
+            await this.ToggleSample("pad", button.IsChecked.Value);
+        }
+
+        private async Task ToggleSample(string name, bool isPlaying)
+        {
+            var buffer = await this.GetBuffer(name);
+            var sample = new AudioSample(name, buffer);
+
+            if (isPlaying)
+            {
+                this.player.Play(sample);
+            }
+            else
+            {
+                this.player.Stop(sample);
+            }
         }
 
         private async Task<IBuffer> GetBuffer(string sampleName)
         {
             IBuffer buffer = null;
 
-            if(!this.buffers.ContainsKey(sampleName))
+            if (!this.buffers.ContainsKey(sampleName))
             {
                 var path = String.Format("ms-appx:///Assets/{0}.wav", sampleName);
                 var audioFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(path));
@@ -50,44 +75,8 @@ namespace UniversalAudioComponent.App
 
                 this.buffers[sampleName] = buffer;
             }
-            else
-            {
-                buffer = this.buffers[sampleName];
-            }
 
-            return buffer;
-        }
-
-        private async void OnToggleBeatClicked(object sender, RoutedEventArgs e)
-        {
-            var button = sender as ToggleButton;
-            var buffer = await this.GetBuffer("beat");
-            var sample = new AudioSample("beat", buffer);
-
-            if(button.IsChecked.Value)
-            {
-                this.player.Play(sample);
-            }
-            else
-            {
-                this.player.Stop(sample);
-            }
-        }
-
-        private async void OnToggleMelodyClicked(object sender, RoutedEventArgs e)
-        {
-            var button = sender as ToggleButton;
-            var buffer = await this.GetBuffer("pad");
-            var sample = new AudioSample("pad", buffer);
-
-            if (button.IsChecked.Value)
-            {
-                this.player.Play(sample);
-            }
-            else
-            {
-                this.player.Stop(sample);
-            }
+            return this.buffers[sampleName];
         }
     }
 }
