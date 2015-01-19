@@ -5,13 +5,32 @@
     xmlns:local="using:UniversalAudioComponent.App"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
-    <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="200">
-            <ToggleButton Height="100" HorizontalAlignment="Stretch" Click="OnToggleMelodyClicked">Toggle Melody</ToggleButton>
-            <ToggleButton Height="100" HorizontalAlignment="Stretch" Click="OnToggleBeatClicked">Toggle Beat</ToggleButton>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="header" Grid.Row="0">
+            <Image Source="Assets/nvs.png" 
+               Margin="10"
+               Stretch="Uniform" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" Width="100"/>
+            <TextBlock Margin="0,20,0,0" Foreground="{ThemeResource BrandPrimaryBrush}" HorizontalAlignment="Center" FontSize="18">Universal Audio Component App</TextBlock>
+
         </StackPanel>
+
+        <StackPanel x:Name="main" Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" FontSize="14">Press the buttons to start/stop audio loops</TextBlock>
+            <StackPanel Width="200">
+                <ToggleButton Height="100" FontSize="16" HorizontalAlignment="Stretch" Click="OnToggleMelodyClicked">Toggle Melody</ToggleButton>
+                <ToggleButton Height="100" FontSize="16" HorizontalAlignment="Stretch" Click="OnToggleBeatClicked">Toggle Beat</ToggleButton>
+            </StackPanel>
+        </StackPanel>
+
     </Grid>
 </Page>

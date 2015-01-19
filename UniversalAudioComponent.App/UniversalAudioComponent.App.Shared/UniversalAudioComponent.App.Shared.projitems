@@ -21,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\beat.wav" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\nvs.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\pad.wav" />
   </ItemGroup>
   <ItemGroup>
