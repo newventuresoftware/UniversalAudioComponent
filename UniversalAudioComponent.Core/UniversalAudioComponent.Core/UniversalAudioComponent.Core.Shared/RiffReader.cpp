@@ -7,7 +7,7 @@ RiffReader::RiffReader()
 {
 }
 
-AudioData^ RiffReader::Read(IBuffer^ buffer)
+AudioData RiffReader::Read(IBuffer^ buffer)
 {
     auto riffChunk = FindChunk(buffer, fourccRIFF);
     auto formatChunk = FindChunk(buffer, fourccFMT);
@@ -15,10 +15,10 @@ AudioData^ RiffReader::Read(IBuffer^ buffer)
 
     auto waveFormat = reinterpret_cast<WAVEFORMATEX*>(formatChunk.data);
 
-    auto data = ref new AudioData();
-    data->bytes = dataChunk.data;
-    data->numberOfBytes = dataChunk.size;
-    data->waveFormat = waveFormat;
+    AudioData data;
+    data.bytes = dataChunk.data;
+    data.numberOfBytes = dataChunk.size;
+    data.waveFormat = waveFormat;
 
     return data;
 }

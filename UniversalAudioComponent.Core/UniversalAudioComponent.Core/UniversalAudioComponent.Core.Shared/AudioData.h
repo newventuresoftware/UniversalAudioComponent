@@ -6,19 +6,11 @@ using namespace Platform;
 
 namespace UniversalAudioComponent
 {
-    ref class AudioData sealed
+    struct AudioData
     {
-    internal:
         byte * bytes;
         unsigned int numberOfBytes;
         WAVEFORMATEX* waveFormat;
-
-    public:
-        AudioData()
-        {
-
-        }
-
     };
 }
 

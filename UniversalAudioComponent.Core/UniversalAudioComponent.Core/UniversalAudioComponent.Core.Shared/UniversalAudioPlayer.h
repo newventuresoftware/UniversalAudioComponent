@@ -21,7 +21,7 @@ namespace UniversalAudioComponent
 
         bool IsPlaying(AudioSample^);
         IXAudio2SourceVoice* CreateVoice(WAVEFORMATEX* wavFormat);
-        XAUDIO2_BUFFER CreateAudioBuffer(AudioData^ data);
+        XAUDIO2_BUFFER CreateAudioBuffer(AudioData data);
 
     public:
         UniversalAudioPlayer();

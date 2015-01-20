@@ -41,7 +41,7 @@ void UniversalAudioPlayer::Play(AudioSample^ sample)
     auto reader = new RiffReader();
     auto data = reader->Read(sample->Buffer);
 
-    IXAudio2SourceVoice * voice = this->CreateVoice(data->waveFormat);
+    IXAudio2SourceVoice * voice = this->CreateVoice(data.waveFormat);
     XAUDIO2_BUFFER buffer = this->CreateAudioBuffer(data);
     HRESULT hr = voice->SubmitSourceBuffer(&buffer);
 
@@ -78,11 +78,11 @@ IXAudio2SourceVoice* UniversalAudioPlayer::CreateVoice(WAVEFORMATEX* wavFormat)
     return voice;
 }
 
-XAUDIO2_BUFFER UniversalAudioPlayer::CreateAudioBuffer(AudioData^ data)
+XAUDIO2_BUFFER UniversalAudioPlayer::CreateAudioBuffer(AudioData data)
 {
     XAUDIO2_BUFFER buffer = { 0 };
-    buffer.AudioBytes = data->numberOfBytes;
-    buffer.pAudioData = data->bytes;
+    buffer.AudioBytes = data.numberOfBytes;
+    buffer.pAudioData = data.bytes;
     buffer.Flags = XAUDIO2_END_OF_STREAM;
     buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
 

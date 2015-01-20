@@ -15,11 +15,11 @@ namespace UniversalAudioComponent
     class RiffReader sealed
     {
     private:
-        ChunkInfo FindChunk(IBuffer^ buffer, uint32 chunkId);
+        ChunkInfo FindChunk(IBuffer^ buffer, uint32 fourcc);
         byte* GetBufferByteAccess(IBuffer^ buffer);
     public:
         RiffReader();
 
-        AudioData^ Read(IBuffer^ buffer);
+        AudioData Read(IBuffer^ buffer);
     };
 }
