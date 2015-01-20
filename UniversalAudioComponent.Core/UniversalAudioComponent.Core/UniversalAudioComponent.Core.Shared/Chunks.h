@@ -2,6 +2,7 @@
 
 #include "pch.h"
 
+//Little-Endian
 const uint32 fourccRIFF = 'FFIR';
 const uint32 fourccWAVE = 'EVAW';
 const uint32 fourccXWMA = 'AMWX';
@@ -18,6 +19,6 @@ private struct ChunkInfo
 {
     uint32 id;
     uint32 size;
-    byte* dataOffset;
+    byte* data;
 };
 

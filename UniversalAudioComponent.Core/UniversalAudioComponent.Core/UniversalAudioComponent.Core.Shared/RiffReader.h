@@ -23,4 +23,3 @@ namespace UniversalAudioComponent
         AudioData^ Read(IBuffer^ buffer);
     };
 }
-

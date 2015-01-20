@@ -13,10 +13,10 @@ AudioData^ RiffReader::Read(IBuffer^ buffer)
     auto formatChunk = FindChunk(buffer, fourccFMT);
     auto dataChunk = FindChunk(buffer, fourccDATA);
 
-    auto waveFormat = reinterpret_cast<WAVEFORMATEX*>(formatChunk.dataOffset);
+    auto waveFormat = reinterpret_cast<WAVEFORMATEX*>(formatChunk.data);
 
     auto data = ref new AudioData();
-    data->bytes = dataChunk.dataOffset;
+    data->bytes = dataChunk.data;
     data->numberOfBytes = dataChunk.size;
     data->waveFormat = waveFormat;
 
@@ -42,7 +42,7 @@ ChunkInfo RiffReader::FindChunk(IBuffer^ buffer, uint32 chunkId)
             info.size = 4;
         }
 
-        info.dataOffset = ptr;
+        info.data = ptr;
 
         ptr += (info.size * sizeof(byte));
 
