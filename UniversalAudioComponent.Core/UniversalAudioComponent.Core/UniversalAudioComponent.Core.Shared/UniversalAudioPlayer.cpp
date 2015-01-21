@@ -73,7 +73,7 @@ IXAudio2SourceVoice* UniversalAudioPlayer::CreateVoice(WAVEFORMATEX* wavFormat)
     HRESULT hr = xAudio->CreateSourceVoice(&voice, wavFormat);
 
     if (FAILED(hr))
-        throw ref new COMException(hr, "SubmitSourceBuffer failure");
+        throw ref new COMException(hr, "CreateSourceVoice failure");
 
     return voice;
 }
@@ -85,6 +85,12 @@ XAUDIO2_BUFFER UniversalAudioPlayer::CreateAudioBuffer(AudioData data)
     buffer.pAudioData = data.bytes;
     buffer.Flags = XAUDIO2_END_OF_STREAM;
     buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
+    
+    if (data.loopLength > 0)
+    {
+        buffer.LoopLength = data.loopLength;
+        buffer.LoopBegin = data.loopStart;
+    }
 
     return buffer;
 }

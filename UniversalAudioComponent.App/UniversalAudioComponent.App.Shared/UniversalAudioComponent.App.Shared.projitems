@@ -21,8 +21,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\beat.wav" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\beat2.wav" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\nvs.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\pad.wav" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\pad2.wav" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">

@@ -10,6 +10,8 @@ namespace UniversalAudioComponent
     {
         byte * bytes;
         unsigned int numberOfBytes;
+        unsigned int loopStart;
+        unsigned int loopLength;
         WAVEFORMATEX* waveFormat;
     };
 }
