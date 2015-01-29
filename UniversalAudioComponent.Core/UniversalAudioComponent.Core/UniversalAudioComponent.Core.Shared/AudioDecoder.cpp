@@ -17,11 +17,13 @@ namespace UniversalAudioComponent
         ComPtr<IMFByteStream> byteStream = nullptr;
         ComPtr<IMFSourceReader> reader = nullptr;
 
+        // Microsoft Media Foundation byte stream that wraps an IRandomAccessStream
         HRESULT hr = MFCreateMFByteStreamOnStreamEx((IUnknown*)audioStream, &byteStream);
 
         if (FAILED(hr))
             ref new COMException(hr, "Could not create byte stream");
 
+        // Get IMFSourceReader
         hr = MFCreateSourceReaderFromByteStream(byteStream.Get(), NULL, &reader);
 
         if (FAILED(hr))
@@ -34,9 +36,13 @@ namespace UniversalAudioComponent
 
     Array<byte>^ AudioDecoder::DecodeAsWav(ComPtr<IMFSourceReader> reader)
     {
-        ComPtr<IMFMediaType> audioType = ConfigureAudioStream(reader); // Represents the PCM audio format.
+        ComPtr<IMFMediaType> audioType = ConfigureAudioStream(reader);
+        
+        // decode the audio data as WAVE
         Vector<byte>^ decodedData = GetDecodedAudioData(reader);
-        Array<byte>^ wav = GetWav(decodedData, audioType);
+
+        // construct WAVE using the decompressed audio data
+        Array<byte>^ wav = GetWav(decodedData, audioType); 
 
         return wav;
     }
@@ -91,6 +97,7 @@ namespace UniversalAudioComponent
         Vector<byte>^ dataBytes = ref new Vector<byte>();
 
         DWORD cbBuffer = 0;
+        DWORD streamIndex = (DWORD)MF_SOURCE_READER_FIRST_AUDIO_STREAM;
         ComPtr<IMFSample> sample = nullptr;
         ComPtr<IMFMediaBuffer> buffer = nullptr;
         BYTE *pAudioData = NULL;
@@ -99,19 +106,23 @@ namespace UniversalAudioComponent
         {
             DWORD dwFlags = 0;
 
-            HRESULT hr = reader->ReadSample((DWORD)MF_SOURCE_READER_FIRST_AUDIO_STREAM, 0, 0, &dwFlags, NULL, &sample);
+            HRESULT hr = reader->ReadSample(streamIndex, 0, 0, &dwFlags, NULL, &sample);
 
-            if (FAILED(hr))
-                ref new COMException(hr, "Failed to read sample");
+            if (FAILED(hr)) 
+            {
+                auto e = ref new COMException(hr, "Failed to read sample");
+                throw e;
+            }
 
             if (dwFlags & MF_SOURCE_READERF_CURRENTMEDIATYPECHANGED)
             {
-                printf("Type change - not supported by WAVE file format.\n");
-                break;
+                auto e = ref new COMException(hr, "Type change - not supported by WAVE file format.");
+                throw e;
             }
+
             if (dwFlags & MF_SOURCE_READERF_ENDOFSTREAM)
             {
-                printf("End of input file.\n");
+                // End of input file
                 break;
             }
 
@@ -154,7 +165,7 @@ namespace UniversalAudioComponent
         int totalBytes = 12 + dataChunkBytes + formatChunkBytes;
         auto buffer = ref new Array<byte>(totalBytes);
         byte * bufferPtr = buffer->begin();
-
+        
         DWORD header[] = {
             FCC('RIFF'), // Riff chunk
             totalBytes - 8,
