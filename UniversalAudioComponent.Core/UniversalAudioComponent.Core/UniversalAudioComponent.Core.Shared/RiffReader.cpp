@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "RiffReader.h"
+#include "Shared.h"
 
 using namespace UniversalAudioComponent;
 
@@ -87,18 +88,4 @@ ChunkInfo RiffReader::FindChunk(IBuffer^ buffer, uint32 chunkId)
     info.size = 0;
 
     return info;
-}
-
-byte* RiffReader::GetBufferByteAccess(IBuffer^ buffer)
-{
-    Object^ obj = buffer;
-    ComPtr<IInspectable> insp(reinterpret_cast<IInspectable*>(obj));
-
-    ComPtr<IBufferByteAccess> bufferByteAccess;
-    insp.As(&bufferByteAccess);
-
-    byte* pixels = nullptr;
-    bufferByteAccess->Buffer(&pixels);
-
-    return pixels;
 }

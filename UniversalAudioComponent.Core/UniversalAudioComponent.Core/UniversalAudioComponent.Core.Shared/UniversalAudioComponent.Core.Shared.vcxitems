@@ -14,14 +14,18 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioDecoder.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RiffReader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Shared.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UniversalAudioPlayer.cpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioDecoder.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioSample.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Chunks.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RiffReader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UniversalAudioPlayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Shared.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">

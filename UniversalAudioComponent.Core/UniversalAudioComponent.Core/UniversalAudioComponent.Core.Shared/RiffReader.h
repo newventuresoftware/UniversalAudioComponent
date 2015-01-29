@@ -12,7 +12,6 @@ namespace UniversalAudioComponent
     {
     private:
         ChunkInfo FindChunk(IBuffer^ buffer, uint32 fourcc);
-        byte* GetBufferByteAccess(IBuffer^ buffer);
         void SetLoopData(IBuffer^ buffer, AudioData& data);
     public:
         RiffReader();

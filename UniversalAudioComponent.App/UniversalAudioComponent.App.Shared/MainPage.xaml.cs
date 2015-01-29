@@ -26,6 +26,7 @@ namespace UniversalAudioComponent.App
     public sealed partial class MainPage : Page
     {
         private UniversalAudioPlayer player = new UniversalAudioPlayer();
+        private AudioDecoder decoder = new AudioDecoder();
         private Dictionary<string, IBuffer> buffers = new Dictionary<string, IBuffer>();
 
         public MainPage()
@@ -51,6 +52,7 @@ namespace UniversalAudioComponent.App
         private async Task ToggleSample(string name, bool isPlaying)
         {
             var buffer = await this.GetBuffer(name);
+            
             var sample = new AudioSample(name, buffer);
 
             if (isPlaying)
@@ -65,14 +67,14 @@ namespace UniversalAudioComponent.App
 
         private async Task<IBuffer> GetBuffer(string sampleName)
         {
-            IBuffer buffer = null;
-
             if (!this.buffers.ContainsKey(sampleName))
             {
                 var path = String.Format("ms-appx:///Assets/{0}.wav", sampleName);
                 var audioFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(path));
-                buffer = await FileIO.ReadBufferAsync(audioFile);
-
+                //var buffer = await FileIO.ReadBufferAsync(audioFile);
+                var audioFileStream = await audioFile.OpenReadAsync();
+                var wavBytes = this.decoder.Decode(audioFileStream);
+                var buffer = wavBytes.AsBuffer();
                 this.buffers[sampleName] = buffer;
             }
 

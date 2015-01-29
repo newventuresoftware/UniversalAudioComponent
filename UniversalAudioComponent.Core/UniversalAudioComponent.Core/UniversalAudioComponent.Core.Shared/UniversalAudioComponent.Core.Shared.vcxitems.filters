@@ -7,6 +7,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioSample.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RiffReader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)AudioData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AudioDecoder.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Shared.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
@@ -14,5 +16,7 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UniversalAudioPlayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RiffReader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AudioDecoder.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Shared.cpp" />
   </ItemGroup>
 </Project>
