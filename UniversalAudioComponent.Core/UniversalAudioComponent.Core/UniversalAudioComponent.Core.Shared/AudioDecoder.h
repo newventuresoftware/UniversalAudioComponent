@@ -23,12 +23,11 @@ namespace UniversalAudioComponent
         
         ComPtr<IMFMediaType> ConfigureAudioStream(ComPtr<IMFSourceReader> reader);
         Vector<byte>^ GetDecodedAudioData(ComPtr<IMFSourceReader> reader);
-
-        void WriteDataToBuffer(Vector<byte>^ buffer, byte * data, DWORD bytes);
-        void WriteDataToBuffer(byte * buffer, byte * data, DWORD bytes);
-        void WriteDataToBuffer(byte * buffer, Vector<byte>^ data);
         Array<byte>^ DecodeAsWav(ComPtr<IMFSourceReader> reader);
         Array<byte>^ GetWav(Vector<byte>^ audioBytes, ComPtr<IMFMediaType> audioType);
+
+        unsigned int WriteHeader(byte * bufferPtr, ComPtr<IMFMediaType> audioType);
+        unsigned int WriteFormat(byte * bufferPtr, ComPtr<IMFMediaType> audioType);
     };
 }
 

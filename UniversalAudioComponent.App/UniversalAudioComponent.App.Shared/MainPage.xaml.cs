@@ -71,7 +71,6 @@ namespace UniversalAudioComponent.App
             {
                 var path = String.Format("ms-appx:///Assets/{0}.wav", sampleName);
                 var audioFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(path));
-                //var buffer = await FileIO.ReadBufferAsync(audioFile);
                 var audioFileStream = await audioFile.OpenReadAsync();
                 var wavBytes = this.decoder.Decode(audioFileStream);
                 var buffer = wavBytes.AsBuffer();
